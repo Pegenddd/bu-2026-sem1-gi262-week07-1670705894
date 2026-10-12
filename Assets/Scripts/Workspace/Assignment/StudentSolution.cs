@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Assignment
 {
@@ -14,6 +13,7 @@ namespace Assignment
             int index = -1;
 
             // Your code here ...
+            // ...
 
             for (int i = 0; i < array.Length; i++)
             {
@@ -23,6 +23,7 @@ namespace Assignment
                     break;
                 }
             }
+
 
             return index;
         }
@@ -41,12 +42,11 @@ namespace Assignment
 
             // Your code here ...
             // ...
+
             for (int r = 0; r < array.GetLength(0); r++)
             {
-                // r = 0, 1, 2
                 for (int c = 0; c < array.GetLength(1); c++)
                 {
-                    // c = 0, 1, 2
                     if (array[r, c] == target)
                     {
                         row = r;
@@ -70,6 +70,7 @@ namespace Assignment
 
             int left = 0;
             int right = array.Length - 1;
+
             while (left <= right)
             {
                 var mid = (left + right) / 2;
@@ -78,9 +79,10 @@ namespace Assignment
                     index = mid;
                     break;
                 }
+
                 else if (array[mid] < target)
                 {
-                    left = mid + 1;
+                    left = mid++;
                 }
                 else if (array[mid] > target)
                 {
@@ -101,40 +103,58 @@ namespace Assignment
             int last = -1;
 
             for (int i = 0; i < array.Length; i++)
+            {
                 if (array[i] == target)
                 {
-                    if (first == -1) first = i;
+                    if (first == -1)
+                    {
+                        first = i;
+                    }
                     last = i;
                 }
+            }
 
-            if (first == -1) return new int[] { -1 };
+            if (first == -1)
+            {
+                return new int[] { -1 };
+            }
+
             return new int[] { first, last };
         }
 
         public int AS02_FindMaxLessThan(int[] array, int target)
         {
-            int max = -1;
+            int maxVal = -1;
+            bool found = false;
 
-            foreach (int num in array)
+            for (int i = 0; i < array.Length; i++)
             {
-                if (num < target && num > max)
+                if (array[i] < target)
                 {
-                    max = num;
+                    if (!found || array[i] > maxVal)
+                    {
+                        maxVal = array[i];
+                        found = true;
+                    }
                 }
             }
 
-            return max;
+            return found ? maxVal : -1;
         }
 
         public int[] AS03_FindRange(int[] array, int min, int max)
         {
-            List<int> result = new List<int>();
-
-            foreach (int num in array)
+            if (min > max)
             {
-                if (num >= min && num <= max)
+                return new int[0];
+            }
+
+            System.Collections.Generic.List<int> result = new System.Collections.Generic.List<int>();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] >= min && array[i] <= max)
                 {
-                    result.Add(num);
+                    result.Add(array[i]);
                 }
             }
 
@@ -147,26 +167,7 @@ namespace Assignment
 
         public int[] EX01_FindTargetEnemies(int[] enemyHPs, int mana)
         {
-            int[] sortedEnemyHP = (int[])enemyHPs.Clone();
-            Array.Sort(sortedEnemyHP);
-
-            List<int> enemyResult = new List<int>();
-            int total = 0;
-
-            foreach (int hp in sortedEnemyHP)
-            {
-                if (total + hp <= mana)
-                {
-                    total += hp;
-                    enemyResult.Add(hp);
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return enemyResult.ToArray();
+            throw new NotImplementedException();
         }
 
         #endregion
